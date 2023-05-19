@@ -2,9 +2,9 @@ const video = document.getElementById('videoInput')
 let xcanvas = document.querySelector("#xcanvas");
 
 Promise.all([
-    faceapi.nets.faceRecognitionNet.loadFromUri('/DILGFACER/models'),
-    faceapi.nets.faceLandmark68Net.loadFromUri('/DILGFACER/models'),
-    faceapi.nets.ssdMobilenetv1.loadFromUri('/DILGFACER/models') //heavier/accurate version of tiny face detector
+    faceapi.nets.faceRecognitionNet.loadFromUri('/pwa-face-ai/models'),
+    faceapi.nets.faceLandmark68Net.loadFromUri('/pwa-face-ai/models'),
+    faceapi.nets.ssdMobilenetv1.loadFromUri('/pwa-face-ai/models') //heavier/accurate version of tiny face detector
 ]).then(start)
 
 function start() {
@@ -96,7 +96,7 @@ function loadLabeledImages() {
         labels.map(async (label)=>{
             const descriptions = []
             for(let i=1; i<=3; i++) {
-                const img = await faceapi.fetchImage(`/DILGFACER/labeled_images/${label}/${i}.jpg`)
+                const img = await faceapi.fetchImage(`/pwa-face-ai/labeled_images/${label}/${i}.jpg`)
                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                 console.log(label + i + JSON.stringify(detections))
                 descriptions.push(detections.descriptor)
